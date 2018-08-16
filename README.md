@@ -1,36 +1,38 @@
-```typescript
+import {AfterViewInit, ApplicationRef, Component, ComponentFactoryResolver, Injector, OnDestroy, ViewChild} from '@angular/core';
+import {CdkPortal, DomPortalHost} from '@angular/cdk/portal';
+
 @Component({
-  selector: 'app-magic',
+  selector: 'app-action',
   template: `
     <ng-container *cdkPortal>
       <ng-content></ng-content>
     </ng-container>
-  `
+  `,
 })
-export class ButtonComponent implements AfterViewInit, OnDestroy {
+export class ActionComponent implements AfterViewInit, OnDestroy {
 
-  @ViewChild(CdkPortal) portal: CdkPortal;
-  private host: PortalHost;
+  @ViewChild(CdkPortal) portal;
+  private host: DomPortalHost;
 
   constructor(
-      private cfr: ComponentFactoryResolver,
-      private appRef: ApplicationRef,
-      private injector: Injector,
-  ) {}
+      private componentFactoryResolver: ComponentFactoryResolver,
+      private applicationRef: ApplicationRef,
+      private injector: Injector
+  ) {
+  }
 
   ngAfterViewInit(): void {
     this.host = new DomPortalHost(
-        document.querySelector('#slot'),
-        this.cfr,
-        this.appRef,
+        document.querySelector('#action'),
+        this.componentFactoryResolver,
+        this.applicationRef,
         this.injector
     );
 
     this.host.attach(this.portal);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.host.detach();
   }
 }
-```

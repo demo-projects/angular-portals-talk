@@ -11,7 +11,7 @@ import {Component} from '@angular/core';
                alt=""
                width="24"
                height="24">
-          <small class="d-block mb-3 text-muted">&copy; 2017-2018</small>
+          <small class="d-block mb-3 text-muted">Nir Kaufman &copy; 2018</small>
         </div>
       </div>
     </footer>
